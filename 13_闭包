@@ -1,0 +1,45 @@
+function fn(){
+  const msg = 'hello'
+  return function () {
+    console.log(msg);
+  }
+}
+fn()()
+
+function once (fn) {
+  let done = false
+  return function () {
+    if(!done){
+      done = true
+      return fn.apply(this,arguments)
+    }
+  }
+}
+let pay = once(money => {
+  console.log(`支付了${money}元`);
+})
+pay(5)
+pay(5)
+
+function makePower(pow){
+  return function(num){
+    return Math.pow(num,pow)
+  }
+}
+const makePow2 = makePower(2)
+const makePow3 = makePower(3)
+
+console.log(makePow2(5));
+console.log(makePow3(5));
+
+function calSalary(base){
+  return function (bonus){
+    return base + bonus
+  }
+}
+
+const calSalaryNor = calSalary(12000)
+const calSalaryHigh = calSalary(15000)
+
+console.log(calSalaryNor(2000));
+console.log(calSalaryHigh(2000 ));
